@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale=1.0 ">
+    <meta name = "description" content = "a very sigma calculator">
+    <title>sigmasid_calculator</title>
+    <style>
+      input, button {
+        border-radius: 10px;
+        padding: 5px;
+        margin: 5px;
+      }
+
+      h2.logo_title {
+        position: absolute;
+        left: 80px;
+        top: 10px;
+      }
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100px;
+      }
+
+      div {
+        position: absolute;
+        top: 100px;
+        left: 500px;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .add, .subtract, .multiply, .divide {
+        width: 79px;
+      }
+
+      #submit {
+        position: absolute;
+        left: 125px;
+      }
+
+      #result {
+        position: absolute;
+        top: 250px;
+        left: 570px;
+      }
+      body{
+        background:green
+      }
+    </style>
+  </head>
+  <body>
+    <h1>the most sigma calculator</h1>
+    <h2 class="logo_title">sigmasid_calculator</h2>
+    <img src="https://iili.io/3wUwQYN.png" alt="logo" />
+
+    <div>
+      <label>your first number</label>
+      <input id="firstNum" type="text" inputmode="numeric" /><br />
+
+      <label>your second number</label>
+      <input id="secondNum" type="text" inputmode="numeric" /><br />
+
+      <button onclick="selectOp('+')" class="add" id="add">+</button>
+      <button onclick="selectOp('-')" class="subtract" id="subtract">-</button>
+      <button onclick="selectOp('*')" class="multiply" id="multiply">*</button>
+      <button onclick="selectOp('/')" class="divide" id="divide">/</button><br />
+
+      <button onclick="calculate()" id="submit">get answer</button>
+    </div>
+
+    <h1 id="result"></h1>
+
+    <script>
+      var op = null;
+
+      function selectOp(operator) {
+        op = operator;
+      }
+
+      function calculate() {
+        var num1 = parseFloat(document.getElementById("firstNum").value);
+        var num2 = parseFloat(document.getElementById("secondNum").value);
+        var result = "";
+
+        if (isNaN(num1) || isNaN(num2)) {
+          result = "Please enter valid numbers.";
+        } else if (op == null) {
+          result = "Please select an operation.";
+        } else {
+          if (op == "+") {
+            result = num1 + num2;
+          } else if (op == "-") {
+            result = num1 - num2;
+          } else if (op == "*") {
+            result = num1 * num2;
+          } else if (op == "/") {
+            if (num2 == 0) {
+              result = "Cannot divide by zero.";
+            } else {
+              result = num1 / num2;
+            }
+          }
+        }
+
+        document.getElementById("result").innerText = "The answer is: " + result;
+      }
+    </script>
+  </body>
+</html>
