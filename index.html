@@ -1,115 +1,181 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset = "UTF-8">
-    <meta name = "viewport" content = "width = device-width, initial-scale=1.0 ">
-    <meta name = "description" content = "a very sigma calculator">
-    <title>sigmasid-calculator</title>
-    <style>
-      input, button {
-        border-radius: 10px;
-        padding: 5px;
-        margin: 5px;
-      }
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="a very sigma calculator" />
+  <title>sigmasid_calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-      h2.logo_title {
-        position: absolute;
-        left: 80px;
-        top: 10px;
-      }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: green;
+      padding: 20px;
+    }
 
-      img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100px;
-      }
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100px;
+    }
 
-      div {
-        position: absolute;
-        top: 100px;
-        left: 500px;
-      }
+    .logo_title {
+      position: absolute;
+      top: 10px;
+      left: 80px;
+      color: white;
+    }
 
-      h1 {
+    h1 {
+      text-align: center;
+      color: white;
+      margin-top: 120px;
+    }
+
+    .calculator {
+      position: absolute;
+      top: 180px;
+      left: 500px;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 300px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    input,
+    button {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      margin: 5px auto;
+      width: 150px;
+      display: block;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .buttons button {
+      width: 60px;
+    }
+
+    #submit {
+      margin-top: 10px;
+    }
+
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      color: green;
+      font-size: 1.2rem;
+    }
+
+    /* Responsive Layout for Mobile */
+    @media (max-width: 768px) {
+      img,
+      .logo_title {
+        position: static;
+        display: block;
+        margin: 0 auto;
         text-align: center;
       }
 
-      .add, .subtract, .multiply, .divide {
-        width: 79px;
+      .logo_title {
+        margin-top: 10px;
       }
 
-      #submit {
-        position: absolute;
-        left: 125px;
+      h1 {
+        margin-top: 20px;
       }
 
-      #result {
-        position: absolute;
-        top: 250px;
-        left: 570px;
+      .calculator {
+        position: static;
+        margin: 20px auto;
+        max-width: 90%;
       }
-      body{
-        background:green
-      }
-    </style>
-  </head>
-  <body>
-    <h1>the most sigma calculator</h1>
-    <h2 class="logo_title">sigmasid-calculator</h2>
-    <img src="https://iili.io/3wUwQYN.png" alt="logo" />
+    }
+  </style>
+</head>
+<body>
+  <img src="https://iili.io/3wUwQYN.png" alt="logo" />
+  <h2 class="logo_title">sigmasid_calculator</h2>
 
-    <div>
-      <label>your first number</label>
-      <input id="firstNum" type="text" inputmode="numeric" /><br />
+  <h1>the most sigma calculator</h1>
 
-      <label>your second number</label>
-      <input id="secondNum" type="text" inputmode="numeric" /><br />
+  <div class="calculator">
+    <label for="firstNum">your first number</label>
+    <input id="firstNum" type="text" inputmode="numeric" />
 
-      <button onclick="selectOp('+')" class="add" id="add">+</button>
-      <button onclick="selectOp('-')" class="subtract" id="subtract">-</button>
-      <button onclick="selectOp('*')" class="multiply" id="multiply">*</button>
-      <button onclick="selectOp('/')" class="divide" id="divide">/</button><br />
+    <label for="secondNum">your second number</label>
+    <input id="secondNum" type="text" inputmode="numeric" />
 
-      <button onclick="calculate()" id="submit">get answer</button>
+    <div class="buttons">
+      <button onclick="selectOp('+')">+</button>
+      <button onclick="selectOp('-')">-</button>
+      <button onclick="selectOp('*')">*</button>
+      <button onclick="selectOp('/')">/</button>
     </div>
 
-    <h1 id="result"></h1>
+    <button onclick="calculate()" id="submit">get answer</button>
 
-    <script>
-      var op = null;
+    <div id="result"></div>
+  </div>
 
-      function selectOp(operator) {
-        op = operator;
-      }
+  <script>
+    let op = null;
 
-      function calculate() {
-        var num1 = parseFloat(document.getElementById("firstNum").value);
-        var num2 = parseFloat(document.getElementById("secondNum").value);
-        var result = "";
+    function selectOp(operator) {
+      op = operator;
+    }
 
-        if (isNaN(num1) || isNaN(num2)) {
-          result = "Please enter valid numbers.";
-        } else if (op == null) {
-          result = "Please select an operation.";
-        } else {
-          if (op == "+") {
+    function calculate() {
+      const num1 = parseFloat(document.getElementById("firstNum").value);
+      const num2 = parseFloat(document.getElementById("secondNum").value);
+      let result = "";
+
+      if (isNaN(num1) || isNaN(num2)) {
+        result = "Please enter valid numbers.";
+      } else if (op == null) {
+        result = "Please select an operation.";
+      } else {
+        switch (op) {
+          case "+":
             result = num1 + num2;
-          } else if (op == "-") {
+            break;
+          case "-":
             result = num1 - num2;
-          } else if (op == "*") {
+            break;
+          case "*":
             result = num1 * num2;
-          } else if (op == "/") {
-            if (num2 == 0) {
-              result = "Cannot divide by zero.";
-            } else {
-              result = num1 / num2;
-            }
-          }
+            break;
+          case "/":
+            result = num2 === 0 ? "Cannot divide by zero." : num1 / num2;
+            break;
         }
-
-        document.getElementById("result").innerText = "The answer is: " + result;
       }
-    </script>
-  </body>
+
+      document.getElementById("result").innerText = "The answer is: " + result;
+    }
+  </script>
+</body>
 </html>
